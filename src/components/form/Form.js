@@ -1,24 +1,23 @@
 import React from "react";
-import { useState } from "react";
 
 export default function Form({ onAddActivity }) {
-  
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     if (data.isForGoodWeather) {
-      data.isForGoodWeather = true
+      data.isForGoodWeather = true;
     } else {
-      data.isForGoodWeather = false
+      data.isForGoodWeather = false;
     }
-  
+
     onAddActivity(data);
     event.target.reset();
     event.target.elements.nameOfActivity.focus();
-  
+  }
+
   return (
-    <form className="form">
+    <form className="form" onsubmit={handleSubmit}>
       <h1 className="form--headline">Headline</h1>
       <label className="form--label" htmlFor="nameOfActivity">
         Activity:
@@ -33,4 +32,4 @@ export default function Form({ onAddActivity }) {
       </button>
     </form>
   );
-}}
+}
