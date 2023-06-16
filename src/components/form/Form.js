@@ -3,26 +3,26 @@ import React from "react";
 export default function Form({ onAddActivity }) {
   function handleSubmit(event) {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-    if (data.isForGoodWeather) {
-      data.isForGoodWeather = true;
-    } else {
-      data.isForGoodWeather = false;
-    }
+
+    const form = event.target;
+    const formElements = form.elements;
+    const data = {
+      name: formElements.name.value,
+      isForGoodWeather: formElements.isForGoodWeather.checked,
+    };
 
     onAddActivity(data);
-    event.target.reset();
-    event.target.elements.nameOfActivity.focus();
+    form.reset();
+    formElements.name.focus();
   }
 
   return (
-    <form className="form" onsubmit={handleSubmit}>
-      <h1 className="form--headline">Headline</h1>
-      <label className="form--label" htmlFor="nameOfActivity">
+    <form className="form" onSubmit={handleSubmit}>
+      <h1 className="form--headline">Add a new Activity:</h1>
+      <label className="form--label" htmlFor="name">
         Activity:
       </label>
-      <input className="form--input" name="nameOfActivity" />
+      <input className="form--input" name="name" />
       <label className="form--label" htmlFor="weatherActivity">
         Weather Activity:
       </label>
